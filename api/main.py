@@ -3,7 +3,7 @@ import time
 
 import tweepy
 
-from Commands import banned, help, predict
+from Commands import banned, help, predict, appeal
 from config import *
 import functions
 
@@ -19,7 +19,7 @@ seen_tweets = [1461731543500525568]
 
 while True:
     print("Waiting for mentions...")
-    for status in api.mentions_timeline(count=30, since_ids=max(seen_tweets)):
+    for status in api.mentions_timeline(count=1, since_ids=max(seen_tweets)):
         parent_tweet_id, text_removed_at = functions.filter_mentions(status)
 
         if parent_tweet_id in seen_tweets:
@@ -30,6 +30,7 @@ while True:
             Commands
         """
         help.help(text_removed_at, parent_tweet_id, api)
+        appeal.appeal(text_removed_at, parent_tweet_id, api)
         predict.predict(text_removed_at, parent_tweet_id, api)
         banned.banstatus(text_removed_at, parent_tweet_id, api)
                     
