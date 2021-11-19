@@ -19,7 +19,7 @@ seen_tweets = [1461731543500525568]
 
 while True:
     print("Waiting for mentions...")
-    for status in api.mentions_timeline(count=1, since_ids=max(seen_tweets)):
+    for status in api.mentions_timeline(count=30, since_ids=max(seen_tweets)):
         parent_tweet_id, text_removed_at = functions.filter_mentions(status)
 
         if parent_tweet_id in seen_tweets:
