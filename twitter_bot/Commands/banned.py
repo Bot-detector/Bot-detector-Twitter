@@ -33,29 +33,25 @@ def check_if_banned(player_name) -> dict:
 
     return {"name": player_name, "banned": "ERROR"}
 
-def banstatus(text):
-    check = 'banstatus'
-    if text[:len(check)] == check:
-        rsn = text[len(check):][1:13].lower()
-
-        if functions.is_valid_rsn(rsn):
-            try: 
-                response = [v for k, v in special_cases_dict.items() if rsn.find(k) == 0][0]
-                return response
-            except IndexError:
-                try:
-                    print(f"Trying to get ban status for {rsn}")
-                    r = check_if_banned(rsn)
-                    
-                    if r['banned']:
-                        response = f"""{r['name']} has been banned or does not appear on the Hiscores."""
-                    else:
-                        response = f"""{r['name']} has not been banned."""
-                        
-                    return response
-                    
-                except:
-                    pass
-        else:
-            response = "The system could not detect a valid RSN. Please send your message again using a valid RSN."
+def banstatus(rsn):
+    if functions.is_valid_rsn(rsn):
+        try: 
+            response = [v for k, v in special_cases_dict.items() if rsn.find(k) == 0][0]
             return response
+        except IndexError:
+            try:
+                print(f"Trying to get ban status for {rsn}")
+                r = check_if_banned(rsn)
+                
+                if r['banned']:
+                    response = f"""{r['name']} has been banned or does not appear on the Hiscores."""
+                else:
+                    response = f"""{r['name']} has not been banned."""
+                    
+                return response
+                
+            except:
+                pass
+    else:
+        response = "The system could not detect a valid RSN. Please send your message again using a valid RSN."
+        return response
