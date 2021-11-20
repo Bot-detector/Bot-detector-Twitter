@@ -2,21 +2,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bd-twitter-bot-dev
+  name: bd-twitter-bot
 spec:
   selector:
     matchLabels:
-      app: bd-twitter-bot-dev
+      app: bd-twitter-bot
   replicas: 1
   template:
     metadata:
-      name: bl-twitter-bot-dev-app
+      name: bl-twitter-bot-app
       labels:
-        app: bd-twitter-bot-dev
+        app: bd-twitter-bot
     spec:
       containers:
-      - name: bd-twitter-bot-dev
-        image: hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:latest
+      - name: bd-twitter-bot
+        image: hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:stable
         imagePullPolicy: Always
         resources:
           limits:

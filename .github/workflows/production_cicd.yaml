@@ -35,17 +35,19 @@ jobs:
           echo "${{ secrets.EASTER_EGGS }}" > easter_eggs.py
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile -t bot-detector/bd-twitter-bot:latest
+        run: docker build . --file Dockerfile -t bot-detector/bd-twitter-bot:stable
   
       - name: Tag Image
-        run: docker tag bot-detector/bd-twitter-bot:latest hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:latest
+        run: docker tag bot-detector/bd-twitter-bot:stable hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:stable
         
       - name: Login to Docker Registry
         run: echo "${{ secrets.DOCKER_REGISTRY_PASSWORD }}" | docker login https://hub.osrsbotdetector.com -u "${{ secrets.DOCKER_REGISTRY_USERNAME }}" --password-stdin
   
       - name: Push Image to Registry
-        run: docker push hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:latest
+        run: docker push hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:stable
 
+      # - name: Apply Possible Deployment Changes
+      #   run: kubectl apply -f prod-deploy.yaml
 
-      #If you want to run this version please pull it with docker onto your own machine and run it from there.
-      #This workflow only creates the image and pushes it to our registry.
+      # - name: Restart Deployment for Possible Container Changes
+      #   run: kubectl rollout restart deploy bd-twitter-bot
