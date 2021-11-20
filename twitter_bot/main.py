@@ -42,27 +42,27 @@ while True:
         """
             Commands
         """
-        
+        # Testing Response
         response = test.test(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
         
-        
+        # Help Command
         response = help.help(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
-            
+        # Jagex appeal command
         response = appeal.appeal(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
-            
+        # Predict command
         response = predict.predict(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
-            
+        # Banstatus command
         response = banned.banstatus(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
