@@ -33,7 +33,7 @@ def check_if_banned(player_name) -> dict:
 
     return {"name": player_name, "banned": "ERROR"}
 
-def banstatus(text, parent_tweet_id, api):
+def banstatus(text):
     check = 'banstatus'
     if text[:len(check)] == check:
         rsn = text[len(check):][1:13].lower()

@@ -1,5 +1,5 @@
 import logging
-def example_command(text, parent_tweet_id, api):
+def example_command(text):
     
     """
     text --> Indicates the string (XXXXXX) after the @Osrsbotdetector XXXXXXXX in a mention. Ex. (@osrsbotdetector 'predict ferrariic...')

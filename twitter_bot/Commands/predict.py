@@ -4,7 +4,7 @@ import functions
 import requests as req
 from config import token
 
-def predict(text, parent_tweet_id, api):
+def predict(text):
     check = 'predict'
     if text[:len(check)] == check:
         rsn = text[len(check):][1:13].lower()
