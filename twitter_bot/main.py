@@ -5,12 +5,12 @@ import time
 import tweepy
 
 import functions
-from Commands import appeal, banned, help, predict, test
+from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree
 from config import *
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth, wait_on_rate_limit = True)
+api = tweepy.API(auth, wait_on_rate_limit = True) # DO NOT DISABLE WAIT ON RATE LIMIT = TRUE, The app will get suspended and we'll probably lose the account lol
 
 logging.basicConfig(filename='log.log', level=logging.DEBUG)
 
@@ -27,7 +27,7 @@ print(f'Loaded {len(seen_tweets)} tweets')
 while True:
     logging.info(f"Waiting for mentions {time.time()}")
     print("Processing Mentions")
-    for status in api.mentions_timeline(count=10):
+    for status in api.mentions_timeline(count=30):
         
         parent_tweet_id, text = functions.filter_mentions(status)
 
@@ -46,9 +46,34 @@ while True:
         response = test.test(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
-        
+            
         # Help Command
         response = help.help(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+            
+        # Github Link
+        response = github.github(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+            
+        # Patreon Link
+        response = patreon.patreon(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+            
+        # Discord Link
+        response = discord.discord(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+        
+        # Website Link
+        response = website.website(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+            
+        # LInktree Link
+        response = linktree.linktree(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
@@ -67,6 +92,5 @@ while True:
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
-            
     print("Sleeping...")
-    time.sleep(900) # Must sleep for 15 minutes or things will go very...very poorly.
+    time.sleep(100) # Check every 100 seconds.
