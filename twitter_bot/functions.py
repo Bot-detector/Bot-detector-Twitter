@@ -11,7 +11,7 @@ def filter_mentions(status):
     
     
 def is_valid_rsn(rsn):
-    return re.fullmatch("[\w\d _-]{1,12}", rsn)
+        return re.fullmatch("[\w\d _-]{1,12}", rsn)
 
 def send_tweet(api, response, parent_tweet_id):
         try:
