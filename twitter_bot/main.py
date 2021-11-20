@@ -26,6 +26,7 @@ print(f'Loaded {len(seen_tweets)} tweets')
 
 while True:
     logging.info(f"Waiting for mentions {time.time()}")
+    print("Processing Mentions")
     for status in api.mentions_timeline(count=20):
         parent_tweet_id, text = functions.filter_mentions(status)
 
@@ -36,8 +37,6 @@ while True:
         # Stores seen tweets so that they won't be run for the future, preventing API spam.
         with open(r"seen_tweets.pickle", "wb") as output_file:
             pickle.dump(seen_tweets, output_file)
-            
-        print(seen_tweets)
         
         """
             Commands
@@ -61,6 +60,5 @@ while True:
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
-
-                        
+        print("Sleeping...")
         time.sleep(900) # Must sleep for 15 minutes or things will go very...very poorly.
