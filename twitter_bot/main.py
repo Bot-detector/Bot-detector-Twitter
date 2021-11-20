@@ -10,7 +10,7 @@ from config import *
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+api = tweepy.API(auth, wait_on_rate_limit = True)
 
 logging.basicConfig(filename='log.log', level=logging.DEBUG)
 
@@ -27,7 +27,7 @@ print(f'Loaded {len(seen_tweets)} tweets')
 while True:
     logging.info(f"Waiting for mentions {time.time()}")
     print("Processing Mentions")
-    for status in api.mentions_timeline(count=20):
+    for status in api.mentions_timeline(count=10):
         
         parent_tweet_id, text = functions.filter_mentions(status)
 
