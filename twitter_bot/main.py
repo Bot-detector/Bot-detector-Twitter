@@ -68,5 +68,5 @@ while True:
             functions.send_tweet(api, response, parent_tweet_id)
             
             
-        print("Sleeping...")
-        time.sleep(900) # Must sleep for 15 minutes or things will go very...very poorly.
+    print("Sleeping...")
+    time.sleep(900) # Must sleep for 15 minutes or things will go very...very poorly.
