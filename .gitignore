@@ -2,3 +2,5 @@
 easter_eggs.py
 __pycache__
 *.log
+env
+env/
