@@ -5,7 +5,7 @@ import time
 import tweepy
 
 import functions
-from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree
+from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree, stats
 from config import *
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -79,6 +79,11 @@ while True:
             
         # Jagex appeal command
         response = appeal.appeal(text)
+        if response is not None:
+            functions.send_tweet(api, response, parent_tweet_id)
+            
+        # Stats command
+        response = stats.stats(text)
         if response is not None:
             functions.send_tweet(api, response, parent_tweet_id)
             
