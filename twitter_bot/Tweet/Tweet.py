@@ -1,11 +1,13 @@
 
 from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree, stats
+import logging
+import tweepy
 
 class Tweet:
     
     def __init__(self, tweet, client):
         self.tweet = tweet.text.lower()
-        print(f'{self.tweet=}')
+        logging.info(f'{self.tweet=}')
         self.parent_id = tweet.id
         self.client = client
         
@@ -42,7 +44,7 @@ class Tweet:
         key_word = text[:loc]
         query = text[loc:].strip()
         
-        print(f'{key_word=} {query=}')
+        logging.info(f'{key_word=} {query=}')
 
         # Gets function from switch
         func = self.switch.get(key_word)
@@ -59,6 +61,9 @@ class Tweet:
         if response is None:
             return
         
-        print(f'{response=}')
+        logging.info(f'{response=}')
         
-        self.client.create_tweet(in_reply_to_tweet_id=self.parent_id, text=response)
+        try:
+            self.client.create_tweet(in_reply_to_tweet_id=self.parent_id, text=response)
+        except tweepy.Forbidden:
+            logging.warning(f"Forbidden Error: {self.tweet=} {self.parent_id=}")
