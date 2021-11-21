@@ -30,8 +30,8 @@ jobs:
 
       - name: Set Up Easter Eggs
         run: |
-          cp /data/easter_eggs.py .
-
+          cp /data/easter_eggs.py ./twitter_bot/easter_eggs.py
+          
       - name: Build the Docker image
         run: docker build . --file Dockerfile -t bot-detector/bd-twitter-bot:stable
   
