@@ -15,19 +15,22 @@ def kc(rsn):
             
             bans = r['total']['bans']
             reports = r['total']['reports']
+            if reports == 0:
+                response = "There was an error collecting your data. Make sure anonymous mode has been turned off and verify that you have kc through the plugin."
+                return response
+            
             ban_percent = round((bans/reports)*100,2)
             bans = "{:,}".format(bans)
             reports = "{:,}".format(reports)
 
-            manual_bans = r['manual']['bans']
             manual_reports = r['manual']['reports']
-            manual_incorrect = r['manual']['incorrect_reports']
-            accuracy = " They have a report accuracy of " + str(round((manual_reports-manual_incorrect)/(manual_reports)*100, 2)) + "%"
-
             if manual_reports == 0:
                 accuracy = ''
+            else:
+                manual_incorrect = r['manual']['incorrect_reports']
+                accuracy = " They have a report accuracy of " + str(round((manual_reports-manual_incorrect)/(manual_reports)*100, 2)) + "%"
 
-            response = f'{ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned.{accuracy}'
+            response = f'🧙 {ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned.{accuracy}'
             return response
         except Exception as e:
             logger.debug(f'Getting Data Error or API status update error. {e}')

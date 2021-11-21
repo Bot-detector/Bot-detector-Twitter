@@ -13,7 +13,7 @@ def predict(rsn):
         try:
             url = f'https://osrsbotdetector.com/dev/v1/prediction?token={token}&name={rsn}'
             response = json.loads(req.get(url).text)[0]
-            response = f"""{rsn} has a {response['Predicted_confidence']}% likelihood of being a {response['Prediction'].replace('_',' ')}."""
+            response = f"""🧙 {rsn} has a {response['Predicted_confidence']}% likelihood of being a {response['Prediction'].replace('_',' ')}."""
             logger.info(f"Prediction Sent for {rsn}.")
             return response
         except Exception as e:
