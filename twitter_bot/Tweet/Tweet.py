@@ -1,5 +1,5 @@
 
-from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree, stats
+from Commands import appeal, banned, help, predict, test, github, patreon, discord, website, linktree, stats, kc
 import logging
 import tweepy
 
@@ -23,6 +23,7 @@ class Tweet:
             'website':website.website,
             'linktree':linktree.linktree,
             'stats':stats.stats,
+            'kc':kc.kc,
         }
         
     def __parser(self):

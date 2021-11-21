@@ -1,5 +1,4 @@
-import logging
-def example_command(text):
+def example_command(text:str) -> str:
         
     "...add logic here..."
 

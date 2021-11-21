@@ -44,9 +44,9 @@ def banstatus(rsn):
                 r = check_if_banned(rsn)
                 
                 if r['banned']:
-                    response = f"""{r['name']} has been banned or does not appear on the Hiscores."""
+                    response = f"""🧙 ❌ {r['name']} has been banned or does not appear on the Hiscores ❌"""
                 else:
-                    response = f"""{r['name']} has not been banned."""
+                    response = f"""🧙 ✔️ {r['name']} has not been banned ✔️"""
                     
                 return response
                 
