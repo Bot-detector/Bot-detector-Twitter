@@ -7,8 +7,6 @@ on:
   # Triggers the workflow on push or pull request events but only for the develop branch
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -46,8 +44,8 @@ jobs:
       - name: Push Image to Registry
         run: docker push hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:stable
 
-      # - name: Apply Possible Deployment Changes
-      #   run: kubectl apply -f prod-deploy.yaml
+      - name: Apply Possible Deployment Changes
+        run: kubectl apply -f prod-deploy.yaml
 
-      # - name: Restart Deployment for Possible Container Changes
-      #   run: kubectl rollout restart deploy bd-twitter-bot
+      - name: Restart Deployment for Possible Container Changes
+        run: kubectl rollout restart deploy bd-twitter-bot
