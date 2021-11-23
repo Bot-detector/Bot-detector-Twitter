@@ -7,6 +7,14 @@ from config import token
 logger = logging.getLogger(__name__)
 
 def kc(rsn):
+    def get_global_banrate():
+        r = req.get('https://www.osrsbotdetector.com/dev/site/dashboard/projectstats').text
+        r = json.loads(r)
+        accounts = r['total_accounts']
+        bans = r['total_bans']
+        global_ban_percent = round((bans/accounts)*100,2)
+        return global_ban_percent
+    
     response = None
     if functions.is_valid_rsn(rsn):
         
@@ -20,7 +28,7 @@ def kc(rsn):
                 response = "There was an error collecting your data. Make sure anonymous mode has been turned off and verify that you have kc through the plugin."
                 return response
             
-            ban_percent = round((bans/reports)*100,2)
+            local_ban_percent = round((bans/reports)*100,2)
             bans = "{:,}".format(bans)
             reports = "{:,}".format(reports)
 
@@ -33,9 +41,25 @@ def kc(rsn):
                 
             if reports == 0:
                 return response
-
-            response = f'🧙 {ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned.{accuracy}'
+            
+            try:
+                global_ban_percent = get_global_banrate()
+                shifted_ban_percent = round((local_ban_percent - global_ban_percent), 2)
+                if shifted_ban_percent >= 0:
+                    arrow = '⬆️'
+                    inc_dec = 'increase'
+                    plus_minus = '+'
+                else:
+                    arrow = '⬇️'
+                    inc_dec = 'decrease'
+                    plus_minus = '-'
+                shifted_statement = f'This is a {plus_minus}{shifted_ban_percent}%{arrow} {inc_dec} compared to the global average of {global_ban_percent}%'
+                response = f'🧙 {local_ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned. {shifted_statement}.{accuracy}.'
+            except:
+                response = f'🧙 {local_ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned.{accuracy}.'
+                
             return response
+        
         except Exception as e:
             logger.debug(f'Getting Data Error or API status update error. {e}')
             
