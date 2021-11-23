@@ -29,6 +29,9 @@ def kc(rsn):
             else:
                 manual_incorrect = r['manual']['incorrect_reports']
                 accuracy = " They have a report accuracy of " + str(round((manual_reports-manual_incorrect)/(manual_reports)*100, 2)) + "%"
+                
+            if reports == 0:
+                return
 
             response = f'🧙 {ban_percent}% ({bans}/{reports}) of accounts encountered by {rsn} have been banned.{accuracy}'
             return response
