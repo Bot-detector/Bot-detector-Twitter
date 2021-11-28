@@ -1,6 +1,7 @@
 import logging
 import pickle
 import time
+import os
 
 import tweepy
 
@@ -11,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret, return_type='dict', wait_on_rate_limit=True)
 
-with open(r"last_tweet.pickle", "rb") as input_file:
+with open(os.path.join(os.curdir + r"/pickle-jar/last_tweet.pickle"), "rb") as input_file:
     newest_tweet = pickle.load(input_file)
 
 if __name__ == '__main__':
@@ -25,8 +26,8 @@ if __name__ == '__main__':
         
         logger.debug(f'{Responses}')
         newest_tweet = Responses.meta['newest_id']
-        
-        with open(r"last_tweet.pickle", "wb") as output_file:
+
+        with open(os.path.join(os.curdir + r"/pickle-jar/last_tweet.pickle"), "wb") as output_file:
             pickle.dump(newest_tweet, output_file)
         
         for tweet in Responses.data:

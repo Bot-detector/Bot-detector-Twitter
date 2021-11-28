@@ -1,4 +1,15 @@
-
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: longhorn-twitter-pickle-jar
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: longhorn
+  resources:
+    requests:
+      storage: 1Gi
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -14,6 +25,10 @@ spec:
       labels:
         app: bd-twitter-bot
     spec:
+      volumes:
+      - name: pickle-jar
+        persistentVolumeClaim:
+          claimName: longhorn-twitter-pickle-jar
       containers:
       - name: bd-twitter-bot
         image: hub.osrsbotdetector.com/bot-detector/bd-twitter-bot:stable
@@ -21,6 +36,9 @@ spec:
         resources:
           limits:
             memory: "500Mi"
-            cpu: "150m"
+            cpu: "300m"
+        volumeMounts:
+        - name: pickle-jar
+          mountPath: /pickle-jar
       imagePullSecrets:
       - name: regcred
