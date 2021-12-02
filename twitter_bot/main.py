@@ -13,7 +13,10 @@ logger = logging.getLogger(__name__)
 client = tweepy.Client(bearer_token, consumer_key, consumer_secret, access_token, access_token_secret, return_type='dict', wait_on_rate_limit=True)
 
 with open(os.path.join(os.curdir + r"/pickle-jar/last_tweet.pickle"), "rb") as input_file:
-    newest_tweet = pickle.load(input_file)
+    try:
+        newest_tweet = pickle.load(input_file)
+    except EOFError:
+        newest_tweet = None
 
 if __name__ == '__main__':
     while True:

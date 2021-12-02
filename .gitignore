@@ -6,7 +6,5 @@ env
 env/
 .vscode/launch.json
 venv/*
+
 *.pickle
-
-
-pickle-jar/last_tweet.pickle
