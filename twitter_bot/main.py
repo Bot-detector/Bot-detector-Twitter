@@ -18,6 +18,7 @@ with open(os.path.join(os.curdir + r"/pickle-jar/last_tweet.pickle"), "rb") as i
     except EOFError:
         newest_tweet = None
 
+
 if __name__ == '__main__':
     while True:
         Responses = client.get_users_mentions(1385386880464822274, max_results=100, since_id=newest_tweet)
