@@ -7,4 +7,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+RUN touch ./pickle-jar/last_tweet.pickle
+
 CMD ["python", "./twitter_bot/main.py"]
