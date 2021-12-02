@@ -5,8 +5,6 @@ COPY ./requirements.txt ./requirements.txt
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-RUN touch ./pickle-jar/last_tweet.pickle
-
 COPY . .
 
 RUN touch ./pickle-jar/last_tweet.pickle
